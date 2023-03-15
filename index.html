@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <!-- skeleton for fonts and wide submit button option -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/skeleton/2.0.4/skeleton.min.css" integrity="sha512-EZLkOqwILORob+p0BXZc+Vm3RgJBOe1Iq/0fiI7r/wJgzOFZMlsqTa29UEl6v6U6gsV4uIpsNZoV32YZqrCRCQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+            <!--  Materialize CDN for appearance  -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=MedievalSharp" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css" integrity="sha512-SzlrxWUlpfuzQ+pcUCosxcglQRNAq/DZjVsC0lE40xsADsfeQoEypE+enwcOiGjk/bSuGGKHEyjSoQ1zVisanQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />           
+    <title>Document</title>
+<style>
+   .container {
+    margin-top: 10%;
+  
+   }
+    .char-name{
+        background: white;
+    }
+    button{
+        background: black;
+        color:antiquewhite;
+        
+    }
+    body {
+        background-color:black;
+        font-family: 'MedievalSharp', sans-serif;
+        font-size: 24px;
+        font-weight: 700;
+        background-image: url(Background.jpg);
+        background-repeat: no-repeat;
+        background-size:cover;
+        color:rgb(218, 218, 218);
+        
+    }
+    h4 {
+        font-size: 50px;
+        font-weight: bold;
+        
+    }
+    .container {
+        padding: 10px;
+    }
+    .error {
+        background: red;
+    }
+
+    .yes {
+        background: green;
+    }
+
+    .no {
+        background:red;
+    }
+
+    u {
+        font-size: 40px;
+        font-weight: bolder;
+    }
+    .characterConfirm {
+        font-size: 35px;
+    }
+    .backAndContinue {
+        display: flex;
+        justify-content: space-around;
+        padding-bottom: 50px;
+    }
+    h2 {
+        font-size: 30px;
+        padding: 25px;
+        font-weight: 700;
+        text-align: center;
+    }
+
+    h3 {
+        color:black;
+    }
+
+    #change {
+        font-size: 100%;
+        display:inline-block;
+        height:auto; 
+    }
+
+    #guide {
+    font-size: 100%;
+    width: 100%;
+    height: 90%;
+    max-height: fit-content;
+    padding-left: 25px;
+    position: absolute;
+    display: flex;
+    align-content: flex-end;
+    align-items: flex-end;
+}
+    #decision {
+        margin-top: 10%;
+        margin-left: 10%;
+        color: white;
+        background: black;
+        align-content: center;
+    } 
+
+    #text-box {
+    background-color: white;
+    color: white;
+    width:75%;
+    height: 45%;
+    display:inline-block;
+    height:auto; 
+    
+    }
+    
+    #decision-box {
+        
+        max-height: 25%;
+        width: 75%;
+        
+        border: 1px solid black; 
+        display: inline-block;
+        background: white;
+        color:black;
+        height: auto;
+        display: flex;
+        
+        
+    }
+
+    #gameOver {
+        
+        
+        color: red;
+    }
+
+</style>
+
+</head>
+<body>
+<div id="entirePage">
+    <div class="container">
+        <form id="game">
+            <div class="container2">
+                <center id="top"><h4>Welcome adventurer</h4>
+                <p id="change">Enter the name of your adventurer below</p></center>
+            </div>
+            <div id="name-and-submit">
+                <input id="char-name" type="text" id="name-input" style="text-align: center;">
+                <button id="char-submit"type="submit" class="u-full-width">Submit</button>    
+            </div>
+        </form>
+    </div>
+    
+        <div id="yes-no"></div>
+</div>
+
+    <script src="app.js"></script>
+</body>
+</html>
