@@ -29,7 +29,7 @@ document.getElementById('game').addEventListener('submit',
     const grab = document.querySelector('body');
 
 class UI {
-    //reusable code that restarts at the opening scene, used later in the game when the mission is failed.
+    //reusable code that restarts at the opening scene
     restart() {
         //creates a div with the id "gameOver"
         divMaker.id = "gameOver"
@@ -408,13 +408,30 @@ class UI {
     }
     
     path2() { 
+
+        const storyProgress =[`As they make their way through the mountains, 
+        they come across a group of nomadic travelers who offer to guide them 
+        through the treacherous terrain. The mercenaries accept the offer, and 
+        the nomads prove to be invaluable allies on their journey.`,`However, as 
+        they near the end of their journey, the mercenaries are ambushed by a group of bandits. 
+        In the ensuing battle, the mercenaries are able to emerge victorious but at a great cost. 
+        One of their members is fatally wounded, and the remaining mercenaries are left to mourn their loss.`,
+        `Despite this setback, the mercenaries press on and finally reach the terrorists' camp. 
+        They are surprised to find that the community is not filled with bloodthirsty killers, but instead with 
+        innocent men, women, and children.`,`The journey through the mountains has taught the mercenaries the 
+        value of allies and the importance of perseverance. The mercenaries decide to hear the community's side of 
+        the story and ultimately choose to support their cause against the queen. They form an unlikely alliance with 
+        the community and begin a long and grueling war against the queen's forces. `];
+        const backgrounds =[`Nomad.png`, `Bandits.png`, `Village.png`, `Leader.png`]
+        
         const ui = new UI();
 
         grab.style.backgroundImage = `url(Winding.png)`
         divMaker.id = "guide";
 
-        divMaker.innerHTML = `<div id="text-box"><h3 id="change">The warriors make their way through the winding road.
-        The trip takes longer than it should but they do not run into any trouble.</h3></div>
+        divMaker.innerHTML = `<div id="text-box"><h3 id="change">The mercenaries decide to take the longer path through the mountains, 
+        they face numerous challenges and obstacles along the way. The treacherous terrain proves to be a difficult and dangerous 
+        journey, and the mercenaries are forced to battle against harsh weather conditions and hostile wildlife.</h3></div>
         <button id="continue-button" type="submit">Continue<i class="fa-solid fa-arrow-right"></i></button></div>`
 
         grab.appendChild(divMaker);
@@ -422,7 +439,17 @@ class UI {
         const textBox = document.querySelector('#continue-button');
         
         textBox.addEventListener('click', function(e){
+           
+            if (storyProgress.length === 0){
+                divMaker.remove();
+                ui.attackedTheCastle();
+            } else {
+            document.querySelector('#change').innerHTML = `${storyProgress[0]}`;
+            grab.style.backgroundImage = `url(${backgrounds[0]})`
             
+            backgrounds.shift();
+            storyProgress.shift();
+            }
 
         e.preventDefault(); 
     });
