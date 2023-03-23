@@ -29,11 +29,11 @@ document.getElementById('game').addEventListener('submit',
     const grab = document.querySelector('body');
 
 class UI {
-    //reusable code that restarts at the opening scene
+    //reusable code that restarts at the opening scene, used later in the game when the mission is failed.
     restart() {
-
+        //creates a div with the id "gameOver"
         divMaker.id = "gameOver"
-        
+        //changes the innerHTML of the div created in the last step
         divMaker.innerHTML = `<center><h1>It appears you have failed.</h1>
         <button id="reset" type="submit">Restart<i class="fa-solid fa-arrow-right"></i></button></center>`
         grab.appendChild(divMaker);
@@ -51,6 +51,7 @@ class UI {
         }
         );
     }
+
 
     showAlert(message, className){
         
@@ -73,7 +74,7 @@ class UI {
     }
     
     mainChar(mainChar) {
-        //Fix!!
+        //Fix!!?
     }
 
    addYesAndNo() {
@@ -105,10 +106,11 @@ class UI {
     }
 
     pageTwo() {
-        
+        const ui =  new UI();
         //Removes background 
+        grab.style = "none"
         grab.style.backgroundImage="none";
-        
+
         divMaker.innerHTML = `<h2>Welcome to a world of magic and adventure, 
                 where the fate of an entire kingdom rests in the hands of four brave 
                 mercenaries. I am Hubert, I can see all that is happening in the kingdom. 
@@ -136,7 +138,6 @@ class UI {
         });
         forward.addEventListener('click', function(e){
 
-            const ui =  new UI();
             divMaker.remove();
             ui.pageThree();
         });
@@ -145,8 +146,9 @@ class UI {
     pageThree(){
         //sets id as guide.
         divMaker.id = "guide";
-
-        //grab.style.backgroudImage="url()";
+        
+        //grab.style.backgroundPosition = "50% 50%";
+        grab.style.backgroundImage = "url(Grandhall.png)";
 
         divMaker.innerHTML = `<div id="text-box"><h3 id="change">
         The scene opens in the grand hall of the palace, where the queen is 
@@ -199,6 +201,9 @@ class UI {
 
     //Decision Page
     pageFour(){
+        const ui = new UI();
+
+        grab.style.backgroundImage = `url(Warriors.png)`;
         
         divMaker.innerHTML = `<div id="text-box"><h3 id="change">As the mercenaries leave the castle, 
         they find themselves standing at a crossroads. They know that the 
@@ -207,12 +212,11 @@ class UI {
         <button id="continue-button" type="submit">Continue <i class="fa-solid fa-arrow-right"></i></button></div>`
 
         grab.appendChild(divMaker);
-        
-        const ui = new UI();
 
         const textBox = document.querySelector('#continue-button');
         
         textBox.addEventListener('click', function(e){
+            
             
             divMaker.remove();
             ui.decisionPage();
@@ -290,7 +294,12 @@ class UI {
         initially thought. They must decide whether to greet the terrorists and hear their side of the 
         story or to attack them as they were originally hired to do. The fate of the kingdom rests in their hands.`
         ] 
+        const backgrounds = [
+            `Village.png`, `Confused.png`, `Confused.png`, `Leader.png`, `Leader.png`, `Leader.png`
+        ]
         
+        grab.style.backgroundImage = `url(Bandits.png)`;
+
         divMaker.innerHTML = `<div id="text-box"><h3 id="change">As the mercenaries continue through the forest, they 
         encounter a band of ruthless bandits. The ensuing battle is fierce, and despite 
         their best efforts, the mercenaries lose one of their own. The remaining three 
@@ -305,12 +314,15 @@ class UI {
         textBox.addEventListener('click', function(e){
             
             //Goes through array using if else. Removes each element after button is pressed
-            //Once all elements have been removed it goes to the next page.
+            //Once all elements have been removed it goes to the next page. Does the same for both text and background
             if (storyProgress.length === 0){
                 divMaker.remove();
                 ui.path1Decisions();
             } else {
             document.querySelector('#change').innerHTML = `${storyProgress[0]}`;
+            grab.style.backgroundImage = `url(${backgrounds[0]})`
+            
+            backgrounds.shift();
             storyProgress.shift();
             }
             
@@ -319,18 +331,110 @@ class UI {
     }
 
     path1Decisions() {
-        console.log('decisions....decisions')
+
+        const decisionText = [`Murder the people in the settlement`, `Aid the people and put an end to the Queens wrath.`]
+        
+        const decision = document.createElement('div');
+
+        grab.appendChild(decision);
+
+        decision.innerHTML = `<div id="decision"> <div id="decision-box"><h1 id="change">${decisionText[0]}</h1></div> <button class="option" id="option1" type="submit">Continue <i class="fa-solid fa-arrow-right"></i></button>
+        <div id="decision-box"><h1 id="change">${decisionText[1]}</h1></div> <button class="option" id="option2" type="submit">Continue <i class="fa-solid fa-arrow-right"></i></button>
+        </div>`
+
+        const decisionButtons = document.querySelectorAll('.option')
+        
+        const ui = new UI();
+
+        for (let i=0; i < decisionButtons.length; i++) {
+            decisionButtons[i].addEventListener('click', function(e){
+            
+            if (this.id === 'option1'){
+                decision.remove();
+                ui.burnedVillage();
+                
+            } else if (this.id === 'option2'){
+                decision.remove();
+                ui.attackedTheCastle();
+            }
+            e.preventDefault();
+        });
+        }
+
+    }
+
+    burnedVillage() {
+        const ui = new UI();
+
+        grab.style.backgroundImage = `url(BurnedVillage.png)`
+        divMaker.id = "guide";
+
+        divMaker.innerHTML = `<div id="text-box"><h3 id="change">The warriors destroyed the village and left nothing  
+        behind. The queen will be happy!</h3></div>
+        <button id="continue-button" type="submit">Thanks For Playing<i class="fa-solid fa-arrow-right"></i></button></div>`
+
+        grab.appendChild(divMaker);
+
+        const textBox = document.querySelector('#continue-button');
+        
+        textBox.addEventListener('click', function(e){
+            
+            window.location.reload();
+
+        e.preventDefault(); 
+        });  
+    }
+
+    attackedTheCastle() {
+        const ui = new UI();
+
+        grab.style.backgroundImage = `url(BurnedCastle.png)`
+        divMaker.id = "guide";
+
+        divMaker.innerHTML = `<div id="text-box"><h3 id="change">The warriors help the people attack the Castle. 
+        The fate of the kingdom is in their hands as they try to end the queens wrath!</h3></div>
+        <button id="continue-button" type="submit">Thanks For Playing<i class="fa-solid fa-arrow-right"></i></button></div>`
+
+        grab.appendChild(divMaker);
+
+        const textBox = document.querySelector('#continue-button');
+        
+        textBox.addEventListener('click', function(e){
+            
+            window.location.reload();
+
+        e.preventDefault(); 
+        });  
     }
     
-    
     path2() { 
-        divMaker.innerHTML = ``
+        const ui = new UI();
+
+        grab.style.backgroundImage = `url(Winding.png)`
+        divMaker.id = "guide";
+
+        divMaker.innerHTML = `<div id="text-box"><h3 id="change">The warriors make their way through the winding road.
+        The trip takes longer than it should but they do not run into any trouble.</h3></div>
+        <button id="continue-button" type="submit">Continue<i class="fa-solid fa-arrow-right"></i></button></div>`
+
+        grab.appendChild(divMaker);
+
+        const textBox = document.querySelector('#continue-button');
+        
+        textBox.addEventListener('click', function(e){
+            
+
+        e.preventDefault(); 
+    });
     }
 
     path3() { 
-        this.restart();
+    
+        const ui = new UI();
+        ui.burnedVillage();
     }
 
 
-    //this.restart() --> restarts game.
+    //this.restart() --> restarts game. 
+    //Did not use above function.
 }
